@@ -112,22 +112,26 @@
 </head>
 <body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen">
     <!-- Mobile Sidebar Backdrop -->
-    <div id="mobileBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
+    <div id="mobileBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- SideNavBar -->
-    <aside id="sidebar" class="bg-surface-container-lowest dark:bg-primary-container text-primary dark:text-inverse-primary w-[280px] h-screen fixed left-0 top-0 shadow-sm border-r border-outline-variant dark:border-outline flex flex-col py-6 z-30 transition-transform duration-300 -translate-x-full md:translate-x-0">
+    <aside id="sidebar" class="bg-surface-container-lowest dark:bg-primary-container text-primary dark:text-inverse-primary w-[260px] xl:w-[280px] h-screen fixed left-0 top-0 shadow-sm border-r border-outline-variant dark:border-outline flex flex-col py-6 z-30 transition-transform duration-300 -translate-x-full lg:translate-x-0">
         <!-- Logo -->
         <div class="px-6 mb-8 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-[#000000] text-white flex items-center justify-center shadow-sm">
-                    <span class="material-symbols-outlined icon-filled text-[22px]">account_balance_wallet</span>
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-[12px] bg-[#000000] text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 5H6C4.89543 5 4 5.89543 4 7V17C4 18.1046 4.89543 19 6 19H18" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+                        <rect x="9.5" y="8.5" width="10.5" height="7" rx="2.5" stroke="white" stroke-width="2.2"/>
+                        <circle cx="14.5" cy="12" r="1" fill="white"/>
+                    </svg>
                 </div>
                 <div>
-                    <h1 class="font-headline-md text-[20px] font-bold text-on-surface dark:text-inverse-on-surface tracking-tight leading-tight">PayPilot</h1>
-                    <p class="font-label-md text-[12px] text-on-surface-variant leading-tight">Fintech SaaS</p>
+                    <h1 class="font-headline-md text-[20px] font-bold text-[#0b1c30] dark:text-inverse-on-surface tracking-tight leading-none">PayPilot</h1>
+                    <p class="text-[13px] text-[#565e74] dark:text-on-surface-variant font-medium mt-1 leading-none">Fintech SaaS</p>
                 </div>
             </a>
-            <button class="md:hidden text-on-surface-variant hover:text-on-surface p-1" onclick="toggleSidebar()">
+            <button class="lg:hidden text-on-surface-variant hover:text-on-surface p-1" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
@@ -152,7 +156,7 @@
             </a>
         </nav>
 
-        <!-- Bottom CTA Button (Exact match with design) -->
+        <!-- Bottom CTA Button -->
         <div class="px-5 mt-auto">
             <a href="create-invoice.html" class="w-full bg-[#000000] text-white font-medium text-[14px] py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-800 transition-all shadow-sm active:scale-[0.98]">
                 <span class="material-symbols-outlined text-[18px]">add</span>
@@ -162,48 +166,48 @@
     </aside>
 
     <!-- TopNavBar -->
-    <header class="bg-surface dark:bg-background text-primary dark:text-inverse-primary h-16 fixed top-0 right-0 left-0 md:left-[280px] border-b border-outline-variant/60 flex justify-between items-center px-4 md:px-8 z-10 transition-all duration-200">
-        <div class="flex items-center gap-3">
-            <button class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low" onclick="toggleSidebar()">
+    <header class="bg-surface dark:bg-background text-primary dark:text-inverse-primary h-16 fixed top-0 right-0 left-0 lg:left-[260px] xl:left-[280px] border-b border-outline-variant/60 flex justify-between items-center px-4 sm:px-6 lg:px-8 z-10 transition-all duration-200">
+        <div class="flex items-center gap-3 flex-1">
+            <button class="lg:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low shrink-0" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">menu</span>
             </button>
             <!-- Search -->
-            <div class="relative w-64 md:w-96">
+            <div class="relative w-full max-w-[200px] sm:max-w-xs md:max-w-sm lg:max-w-md">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">search</span>
-                <input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors" placeholder="Search invoices, clients..." type="text"/>
+                <input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-shadow" placeholder="Search invoices, clients..." type="text"/>
             </div>
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-3 md:gap-4">
-            <button onclick="showToast('You have 1 pending invoice ready for review.')" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors relative">
-                <span class="material-symbols-outlined text-[22px]">notifications</span>
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
+            <button onclick="showToast('You have 1 pending invoice ready for review.')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors relative">
+                <span class="material-symbols-outlined text-[20px] sm:text-[22px]">notifications</span>
                 <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
             </button>
-            <button onclick="showToast('PayPilot Help & Documentation Guide')" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
-                <span class="material-symbols-outlined text-[22px]">help_outline</span>
+            <button onclick="showToast('PayPilot Help & Documentation Guide')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors hidden sm:flex">
+                <span class="material-symbols-outlined text-[20px] sm:text-[22px]">help_outline</span>
             </button>
-            <div class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant cursor-pointer ml-1">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-outline-variant cursor-pointer ml-1">
                 <img alt="Alex Profile" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"/>
             </div>
         </div>
     </header>
 
     <!-- Main Content Canvas -->
-    <main class="md:ml-[280px] pt-24 px-4 sm:px-6 lg:px-8 pb-10 min-h-screen bg-background">
+    <main class="lg:ml-[260px] xl:ml-[280px] pt-20 lg:pt-24 px-4 sm:px-6 lg:px-8 pb-10 min-h-screen bg-background">
         <div class="max-w-container-max mx-auto space-y-6 md:space-y-8">
             <!-- Header Section -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
                 <div>
-                    <h2 class="font-headline-lg text-[30px] font-bold text-on-surface tracking-tight">Good morning, Alex.</h2>
-                    <p class="font-body-md text-on-surface-variant mt-1">Here's your financial overview for today.</p>
+                    <h2 class="font-headline-lg text-[24px] sm:text-[28px] lg:text-[30px] font-bold text-on-surface tracking-tight">Good morning, Alex.</h2>
+                    <p class="font-body-md text-sm sm:text-base text-on-surface-variant mt-1">Here's your financial overview for today.</p>
                 </div>
-                <div class="flex flex-wrap gap-3">
-                    <button onclick="showAddExpenseModal()" class="h-[42px] px-5 bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-label-md text-label-md rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-xs">
+                <div class="flex flex-wrap gap-2.5 sm:gap-3 w-full sm:w-auto">
+                    <button onclick="showAddExpenseModal()" class="flex-1 sm:flex-initial h-[40px] sm:h-[42px] px-4 sm:px-5 bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-label-md text-xs sm:text-sm rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-low transition-colors shadow-xs">
                         <span class="material-symbols-outlined text-[18px]">receipt</span>
                         Add Expense
                     </button>
-                    <a href="create-invoice.html" class="h-[42px] px-5 bg-[#000000] text-white font-label-md text-label-md rounded-lg flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-xs">
+                    <a href="create-invoice.html" class="flex-1 sm:flex-initial h-[40px] sm:h-[42px] px-4 sm:px-5 bg-[#000000] text-white font-label-md text-xs sm:text-sm rounded-lg flex items-center justify-center gap-2 hover:bg-neutral-800 transition-colors shadow-xs">
                         <span class="material-symbols-outlined text-[18px]">add</span>
                         Create Invoice
                     </a>
@@ -211,17 +215,17 @@
             </div>
 
             <!-- Bento Grid: Financial Summary -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                 <!-- Total Balance -->
-                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <p class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Total Balance</p>
-                        <div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+                <div class="bg-surface-container-lowest rounded-xl p-5 sm:p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300">
+                    <div class="flex justify-between items-start mb-3 sm:mb-4">
+                        <p class="font-label-md text-[11px] sm:text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Total Balance</p>
+                        <div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary shrink-0">
                             <span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
                         </div>
                     </div>
-                    <h3 class="font-stat-lg text-[32px] font-bold text-on-surface mb-2" id="totalBalanceVal">$24,500.00</h3>
-                    <div class="flex items-center gap-1 text-secondary font-medium text-sm">
+                    <h3 class="font-stat-lg text-[24px] sm:text-[28px] xl:text-[32px] font-bold text-on-surface mb-2 truncate" id="totalBalanceVal">$24,500.00</h3>
+                    <div class="flex items-center gap-1 text-secondary font-medium text-xs sm:text-sm flex-wrap">
                         <span class="material-symbols-outlined text-[16px]">trending_up</span>
                         <span class="font-semibold">+4.2%</span>
                         <span class="text-on-surface-variant ml-1 font-normal">vs last month</span>
@@ -229,15 +233,15 @@
                 </div>
 
                 <!-- Monthly Income -->
-                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <p class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Monthly Income</p>
-                        <div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+                <div class="bg-surface-container-lowest rounded-xl p-5 sm:p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300">
+                    <div class="flex justify-between items-start mb-3 sm:mb-4">
+                        <p class="font-label-md text-[11px] sm:text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Monthly Income</p>
+                        <div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary shrink-0">
                             <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
                         </div>
                     </div>
-                    <h3 class="font-stat-lg text-[32px] font-bold text-on-surface mb-2" id="monthlyIncomeVal">$8,200.00</h3>
-                    <div class="flex items-center gap-1 text-secondary font-medium text-sm">
+                    <h3 class="font-stat-lg text-[24px] sm:text-[28px] xl:text-[32px] font-bold text-on-surface mb-2 truncate" id="monthlyIncomeVal">$8,200.00</h3>
+                    <div class="flex items-center gap-1 text-secondary font-medium text-xs sm:text-sm flex-wrap">
                         <span class="material-symbols-outlined text-[16px]">trending_up</span>
                         <span class="font-semibold">+12.5%</span>
                         <span class="text-on-surface-variant ml-1 font-normal">vs last month</span>
@@ -245,15 +249,15 @@
                 </div>
 
                 <!-- Monthly Expenses -->
-                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <p class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Monthly Expenses</p>
-                        <div class="w-8 h-8 rounded-full bg-error-container/50 flex items-center justify-center text-error">
+                <div class="bg-surface-container-lowest rounded-xl p-5 sm:p-6 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/30 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300 sm:col-span-2 lg:col-span-1">
+                    <div class="flex justify-between items-start mb-3 sm:mb-4">
+                        <p class="font-label-md text-[11px] sm:text-[12px] text-on-surface-variant uppercase tracking-wider font-semibold">Monthly Expenses</p>
+                        <div class="w-8 h-8 rounded-full bg-error-container/50 flex items-center justify-center text-error shrink-0">
                             <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
                         </div>
                     </div>
-                    <h3 class="font-stat-lg text-[32px] font-bold text-on-surface mb-2" id="monthlyExpenseVal">$3,150.00</h3>
-                    <div class="flex items-center gap-1 text-on-surface-variant font-medium text-sm">
+                    <h3 class="font-stat-lg text-[24px] sm:text-[28px] xl:text-[32px] font-bold text-on-surface mb-2 truncate" id="monthlyExpenseVal">$3,150.00</h3>
+                    <div class="flex items-center gap-1 text-on-surface-variant font-medium text-xs sm:text-sm flex-wrap">
                         <span class="material-symbols-outlined text-[16px]">trending_flat</span>
                         <span class="font-semibold">-1.2%</span>
                         <span class="ml-1 font-normal">vs last month</span>

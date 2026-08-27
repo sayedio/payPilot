@@ -112,22 +112,26 @@
 </head>
 <body class="bg-background text-on-surface font-body-md min-h-screen">
     <!-- Mobile Sidebar Backdrop -->
-    <div id="mobileBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
+    <div id="mobileBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- SideNavBar (Exact match with screenshot 1) -->
-    <aside id="sidebar" class="bg-surface-container-lowest text-primary w-[280px] h-screen fixed left-0 top-0 shadow-sm border-r border-outline-variant/60 flex flex-col py-6 z-30 transition-transform duration-300 -translate-x-full md:translate-x-0">
+    <aside id="sidebar" class="bg-surface-container-lowest text-primary w-[260px] xl:w-[280px] h-screen fixed left-0 top-0 shadow-sm border-r border-outline-variant/60 flex flex-col py-6 z-30 transition-transform duration-300 -translate-x-full lg:translate-x-0">
         <!-- Logo -->
         <div class="px-6 mb-8 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-[#000000] text-white flex items-center justify-center shadow-sm">
-                    <span class="material-symbols-outlined icon-filled text-[22px]">account_balance_wallet</span>
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-[12px] bg-[#000000] text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 5H6C4.89543 5 4 5.89543 4 7V17C4 18.1046 4.89543 19 6 19H18" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+                        <rect x="9.5" y="8.5" width="10.5" height="7" rx="2.5" stroke="white" stroke-width="2.2"/>
+                        <circle cx="14.5" cy="12" r="1" fill="white"/>
+                    </svg>
                 </div>
                 <div>
-                    <h1 class="font-headline-md text-[20px] font-bold text-on-surface tracking-tight leading-tight">PayPilot</h1>
-                    <p class="font-label-md text-[12px] text-on-surface-variant leading-tight">Fintech SaaS</p>
+                    <h1 class="font-headline-md text-[20px] font-bold text-[#0b1c30] tracking-tight leading-none">PayPilot</h1>
+                    <p class="text-[13px] text-[#565e74] font-medium mt-1 leading-none">Fintech SaaS</p>
                 </div>
             </a>
-            <button class="md:hidden text-on-surface-variant hover:text-on-surface p-1" onclick="toggleSidebar()">
+            <button class="lg:hidden text-on-surface-variant hover:text-on-surface p-1" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
@@ -162,39 +166,39 @@
     </aside>
 
     <!-- TopNavBar -->
-    <header class="bg-surface border-b border-outline-variant/60 h-16 fixed top-0 right-0 left-0 md:left-[280px] flex justify-between items-center px-4 md:px-8 z-10 transition-all duration-200">
-        <div class="flex items-center gap-3">
-            <button class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low" onclick="toggleSidebar()">
+    <header class="bg-surface border-b border-outline-variant/60 h-16 fixed top-0 right-0 left-0 lg:left-[260px] xl:left-[280px] flex justify-between items-center px-4 sm:px-6 lg:px-8 z-10 transition-all duration-200">
+        <div class="flex items-center gap-3 flex-1">
+            <button class="lg:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low shrink-0" onclick="toggleSidebar()">
                 <span class="material-symbols-outlined">menu</span>
             </button>
-            <div class="relative w-64 md:w-96">
+            <div class="relative w-full max-w-[200px] sm:max-w-xs md:max-w-sm lg:max-w-md">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">search</span>
                 <input id="topSearchInput" oninput="handleTopSearch(this.value)" class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-shadow" placeholder="Search invoices, clients..." type="text"/>
             </div>
         </div>
 
-        <div class="flex items-center gap-3 md:gap-4 text-on-surface-variant">
-            <button onclick="showToast('No unread transaction alerts')" class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors relative">
-                <span class="material-symbols-outlined text-[22px]">notifications</span>
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 text-on-surface-variant shrink-0">
+            <button onclick="showToast('No unread transaction alerts')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors relative">
+                <span class="material-symbols-outlined text-[20px] sm:text-[22px]">notifications</span>
                 <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
             </button>
-            <button onclick="showToast('Transactions Ledger Help Guide')" class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors">
-                <span class="material-symbols-outlined text-[22px]">help_outline</span>
+            <button onclick="showToast('Transactions Ledger Help Guide')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors hidden sm:flex">
+                <span class="material-symbols-outlined text-[20px] sm:text-[22px]">help_outline</span>
             </button>
-            <div class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant cursor-pointer ml-1">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-outline-variant cursor-pointer ml-1">
                 <img alt="User Profile" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"/>
             </div>
         </div>
     </header>
 
     <!-- Main Content Area (Exact match with Screenshot 1) -->
-    <main class="md:ml-[280px] pt-24 px-4 sm:px-6 lg:px-8 pb-10 min-h-screen bg-background">
+    <main class="lg:ml-[260px] xl:ml-[280px] pt-20 lg:pt-24 px-4 sm:px-6 lg:px-8 pb-10 min-h-screen bg-background">
         <div class="max-w-container-max mx-auto space-y-6">
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
-                    <h2 class="font-headline-lg text-[28px] font-bold text-on-surface mb-0.5 tracking-tight">Transactions</h2>
-                    <p class="font-body-md text-on-surface-variant text-sm">Manage and review your recent financial activity.</p>
+                    <h2 class="font-headline-lg text-[24px] sm:text-[28px] font-bold text-on-surface mb-0.5 tracking-tight">Transactions</h2>
+                    <p class="font-body-md text-on-surface-variant text-xs sm:text-sm">Manage and review your recent financial activity.</p>
                 </div>
                 <div>
                     <button onclick="exportToCSV()" class="px-4 py-2 bg-surface-container-lowest border border-outline-variant/60 text-on-surface rounded-xl text-xs font-semibold hover:bg-surface-container-low transition-colors flex items-center gap-2 shadow-xs">
@@ -205,7 +209,7 @@
             </div>
 
             <!-- Filter Bar (Bento-style layout matching Screenshot 1) -->
-            <div class="bg-surface-container-lowest rounded-2xl p-5 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/40 flex flex-wrap gap-4 items-end">
+            <div class="bg-surface-container-lowest rounded-2xl p-4 sm:p-5 shadow-[0_4px_24px_rgba(15,23,42,0.04)] border border-outline-variant/40 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-end">
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-[11px] font-bold text-on-surface-variant mb-1.5 uppercase tracking-wider">SEARCH</label>
                     <div class="relative">
