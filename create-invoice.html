@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>PayPilot - Create Invoice</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#565e74",
+                      "primary-container": "#131b2e",
+                      "on-secondary-fixed": "#00201d",
+                      "tertiary-fixed": "#d8e2ff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#3980f4",
+                      "surface-bright": "#f8f9ff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "inverse-primary": "#bec6e0",
+                      "on-secondary-container": "#006f66",
+                      "primary-fixed-dim": "#bec6e0",
+                      "background": "#f8f9ff",
+                      "secondary-fixed-dim": "#6bd8cb",
+                      "on-surface": "#0b1c30",
+                      "on-secondary-fixed-variant": "#005049",
+                      "secondary-container": "#86f2e4",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#adc6ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed": "#131b2e",
+                      "on-surface-variant": "#45464d",
+                      "secondary-fixed": "#89f5e7",
+                      "tertiary": "#000000",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#76777d",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#001a42",
+                      "on-error-container": "#93000a",
+                      "surface-container-high": "#dce9ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#006a61",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-tertiary-fixed-variant": "#004395",
+                      "surface-container-highest": "#d3e4fe",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#dae2fd",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container": "#e5eeff",
+                      "outline-variant": "#c6c6cd",
+                      "primary": "#000000",
+                      "surface": "#f8f9ff",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#001a42",
+                      "inverse-surface": "#213145",
+                      "on-primary-container": "#7c839b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "2rem",
+                      "stack-lg": "2rem",
+                      "gutter": "1.5rem",
+                      "container-max": "1440px",
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "headline-md": ["Geist", "sans-serif"],
+                      "headline-lg": ["Geist", "sans-serif"],
+                      "body-lg": ["Inter", "sans-serif"],
+                      "body-md": ["Inter", "sans-serif"],
+                      "stat-lg": ["Geist", "sans-serif"],
+                      "display-lg": ["Geist", "sans-serif"],
+                      "body-sm": ["Inter", "sans-serif"],
+                      "label-md": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "stat-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #f8f9ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen">
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="mobileBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- SideNavBar (Exact match with screenshot 2) -->
+    <aside id="sidebar" class="bg-surface-container-lowest text-primary w-[280px] h-screen fixed left-0 top-0 shadow-sm border-r border-outline-variant/60 flex flex-col py-6 z-30 transition-transform duration-300 -translate-x-full md:translate-x-0">
+        <!-- Logo -->
+        <div class="px-6 mb-8 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#000000] text-white flex items-center justify-center shadow-sm">
+                    <span class="material-symbols-outlined icon-filled text-[22px]">account_balance_wallet</span>
+                </div>
+                <div>
+                    <h1 class="font-headline-md text-[20px] font-bold text-on-surface tracking-tight leading-tight">PayPilot</h1>
+                    <p class="font-label-md text-[12px] text-on-surface-variant leading-tight">Fintech SaaS</p>
+                </div>
+            </a>
+            <button class="md:hidden text-on-surface-variant hover:text-on-surface p-1" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 px-4 space-y-1.5">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium">
+                <span class="material-symbols-outlined text-[20px]">grid_view</span>
+                <span class="font-body-md text-body-md">Dashboard</span>
+            </a>
+            <a href="transactions.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium">
+                <span class="material-symbols-outlined text-[20px]">payments</span>
+                <span class="font-body-md text-body-md">Transactions</span>
+            </a>
+            <a href="create-invoice.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#006f66] font-bold border-r-4 border-[#006a61] bg-[#e5eeff] transition-colors">
+                <span class="material-symbols-outlined icon-filled text-[20px] text-[#006a61]">receipt_long</span>
+                <span class="font-body-md text-body-md">Invoices</span>
+            </a>
+            <a href="#" onclick="showToast('Settings configuration panel')" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-medium">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                <span class="font-body-md text-body-md">Settings</span>
+            </a>
+        </nav>
+
+        <!-- Bottom CTA Button (Exact match) -->
+        <div class="px-5 mt-auto">
+            <a href="create-invoice.html" class="w-full bg-[#000000] text-white font-medium text-[14px] py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-800 transition-all shadow-sm active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                Create Invoice
+            </a>
+        </div>
+    </aside>
+
+    <!-- TopNavBar -->
+    <header class="bg-surface border-b border-outline-variant/60 h-16 fixed top-0 right-0 left-0 md:left-[280px] flex justify-between items-center px-4 md:px-8 z-10 transition-all duration-200">
+        <div class="flex items-center gap-3">
+            <button class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="relative w-64 md:w-96">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">search</span>
+                <input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/70 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-shadow" placeholder="Search invoices, clients..." type="text"/>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-4 text-on-surface-variant">
+            <button onclick="showToast('No unread notifications')" class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors relative">
+                <span class="material-symbols-outlined text-[22px]">notifications</span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+            </button>
+            <button onclick="showToast('Invoice Creation Guide')" class="w-10 h-10 rounded-full hover:bg-surface-container-low flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[22px]">help_outline</span>
+            </button>
+            <div class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant cursor-pointer ml-1">
+                <img alt="User Profile" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="md:ml-[280px] mt-16 p-4 sm:p-gutter lg:p-8 min-h-[calc(100vh-64px)] flex justify-center bg-background">
+        <!-- Form Container -->
+        <div class="w-full max-w-4xl space-y-6">
+            <!-- Breadcrumbs & Heading -->
+            <div>
+                <div class="flex items-center gap-1.5 text-on-surface-variant mb-2 text-sm font-medium">
+                    <a class="hover:text-primary transition-colors text-on-surface-variant" href="index.html">Invoices</a>
+                    <span class="text-xs">›</span>
+                    <span class="text-on-surface font-semibold">Create New</span>
+                </div>
+                <h2 class="font-headline-lg text-[28px] font-bold text-on-surface tracking-tight">Create New Invoice</h2>
+            </div>
+
+            <!-- Form Card (Exact match with Screenshot 2) -->
+            <div class="bg-surface-container-lowest rounded-2xl shadow-[0_4px_24px_rgba(15,23,42,0.06)] border border-outline-variant/50 overflow-hidden p-6 md:p-8">
+                <form id="invoiceForm" onsubmit="handleReviewInvoice(event)">
+                    <!-- Header Section: Client & Meta -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pb-8 border-b border-outline-variant/30">
+                        <!-- Client Info -->
+                        <div class="space-y-3">
+                            <label class="block text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">BILL TO</label>
+                            <div class="relative">
+                                <select id="clientSelect" required class="w-full appearance-none bg-surface-bright border border-outline-variant/60 rounded-lg px-4 py-2.5 text-body-md text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-shadow cursor-pointer">
+                                    <option value="" disabled selected>Select Client...</option>
+                                    <option value="Acme Corp">Acme Corp</option>
+                                    <option value="Globex Inc">Globex Inc</option>
+                                    <option value="Initech Systems">Initech Systems</option>
+                                    <option value="TechCorp Inc.">TechCorp Inc.</option>
+                                    <option value="Global Logistics LLC">Global Logistics LLC</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+                            </div>
+                            <button onclick="promptNewClient()" class="text-[#006a61] text-[13px] font-semibold flex items-center gap-1 hover:underline transition-colors mt-2" type="button">
+                                <span class="text-base font-bold">+</span>
+                                Add New Client
+                            </button>
+                        </div>
+
+                        <!-- Invoice Details -->
+                        <div class="space-y-3.5">
+                            <div class="flex items-center justify-between gap-4">
+                                <label class="text-[13px] font-medium text-on-surface-variant w-1/3">Invoice Number</label>
+                                <input id="invoiceNum" class="w-2/3 bg-surface border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm text-on-surface cursor-not-allowed font-medium" readonly type="text" value="INV-2023-0042"/>
+                            </div>
+                            <div class="flex items-center justify-between gap-4">
+                                <label class="text-[13px] font-medium text-on-surface-variant w-1/3">Issue Date</label>
+                                <input id="issueDate" required class="w-2/3 bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-shadow" type="date"/>
+                            </div>
+                            <div class="flex items-center justify-between gap-4">
+                                <label class="text-[13px] font-medium text-on-surface-variant w-1/3">Due Date</label>
+                                <input id="dueDate" required class="w-2/3 bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-shadow" type="date"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Items Section (Exact match with Screenshot 2) -->
+                    <div class="mb-8 pb-8 border-b border-outline-variant/30">
+                        <label class="block text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-4">LINE ITEMS</label>
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full min-w-[620px] text-left border-collapse" id="lineItemsTable">
+                                <thead>
+                                    <tr class="text-on-surface-variant text-[12px] font-semibold border-b border-outline-variant/30">
+                                        <th class="pb-3 w-1/2 font-semibold">Description</th>
+                                        <th class="pb-3 w-1/6 font-semibold">Qty</th>
+                                        <th class="pb-3 w-1/6 font-semibold">Rate</th>
+                                        <th class="pb-3 w-1/6 text-right font-semibold pr-2">Amount</th>
+                                        <th class="pb-3 w-8"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lineItemsBody">
+                                    <!-- Row 1 -->
+                                    <tr class="line-item-row group hover:bg-surface-container-lowest transition-colors border-b border-outline-variant/20">
+                                        <td class="py-3 pr-3">
+                                            <input class="item-desc w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="Item description" type="text" value="Design Consultation & Architecture"/>
+                                        </td>
+                                        <td class="py-3 pr-3">
+                                            <input oninput="calculateTotals()" class="item-qty w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="1" type="number" min="1" value="1"/>
+                                        </td>
+                                        <td class="py-3 pr-3">
+                                            <div class="relative">
+                                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm font-medium">$</span>
+                                                <input oninput="calculateTotals()" class="item-rate w-full bg-surface-bright border border-outline-variant/60 rounded-lg pl-7 pr-3 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="0.00" type="number" step="0.01" min="0" value="1200.00"/>
+                                            </div>
+                                        </td>
+                                        <td class="item-amount py-3 text-right font-semibold text-on-surface pr-2 text-sm">$1,200.00</td>
+                                        <td class="py-3 text-right">
+                                            <button onclick="removeLineItem(this)" class="text-outline hover:text-error transition-colors opacity-40 group-hover:opacity-100 p-1" type="button">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- Row 2 -->
+                                    <tr class="line-item-row group hover:bg-surface-container-lowest transition-colors border-b border-outline-variant/20">
+                                        <td class="py-3 pr-3">
+                                            <input class="item-desc w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="Item description" type="text" value="Component Development & Testing"/>
+                                        </td>
+                                        <td class="py-3 pr-3">
+                                            <input oninput="calculateTotals()" class="item-qty w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="1" type="number" min="1" value="1"/>
+                                        </td>
+                                        <td class="py-3 pr-3">
+                                            <div class="relative">
+                                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm font-medium">$</span>
+                                                <input oninput="calculateTotals()" class="item-rate w-full bg-surface-bright border border-outline-variant/60 rounded-lg pl-7 pr-3 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="0.00" type="number" step="0.01" min="0" value="800.00"/>
+                                            </div>
+                                        </td>
+                                        <td class="item-amount py-3 text-right font-semibold text-on-surface pr-2 text-sm">$800.00</td>
+                                        <td class="py-3 text-right">
+                                            <button onclick="removeLineItem(this)" class="text-outline hover:text-error transition-colors opacity-40 group-hover:opacity-100 p-1" type="button">
+                                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4">
+                            <button onclick="addLineItem()" class="text-[#006a61] text-[13px] font-semibold flex items-center gap-1.5 hover:underline transition-colors" type="button">
+                                <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                                Add Line Item
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary & Actions Section -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                        <!-- Notes/Terms -->
+                        <div class="w-full md:w-1/2 space-y-2">
+                            <label class="block text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">NOTES TO CLIENT</label>
+                            <textarea id="invoiceNotes" class="w-full bg-surface-bright border border-outline-variant/60 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-shadow resize-none" placeholder="Thank you for your business..." rows="3"></textarea>
+                        </div>
+
+                        <!-- Calculations -->
+                        <div class="w-full md:w-1/3 space-y-3">
+                            <div class="flex justify-between text-sm text-on-surface-variant">
+                                <span>Subtotal</span>
+                                <span id="subtotalDisplay" class="font-medium text-on-surface">$2,000.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm text-on-surface-variant">
+                                <span class="flex items-center gap-2">
+                                    Tax
+                                    <select id="taxRateSelect" onchange="calculateTotals()" class="bg-transparent border-b border-outline-variant py-0.5 text-xs outline-none focus:border-secondary cursor-pointer">
+                                        <option value="0">0%</option>
+                                        <option value="5">5%</option>
+                                        <option value="10" selected>10%</option>
+                                    </select>
+                                </span>
+                                <span id="taxDisplay" class="font-medium text-on-surface">$200.00</span>
+                            </div>
+                            <div class="h-px bg-outline-variant/40 my-2"></div>
+                            <div class="flex justify-between text-lg font-bold text-on-surface">
+                                <span>Total</span>
+                                <span id="totalDisplay" class="text-on-surface font-bold text-xl">$2,200.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="mt-8 pt-6 border-t border-outline-variant/30 flex justify-end gap-3">
+                        <button onclick="handleSaveDraft()" class="px-5 py-2.5 rounded-xl border border-outline-variant/80 text-on-surface text-[14px] font-medium hover:bg-surface-container-low transition-colors" type="button">
+                            Save Draft
+                        </button>
+                        <button class="px-6 py-2.5 rounded-xl bg-[#006a61] text-white text-[14px] font-medium hover:bg-[#005049] transition-all shadow-sm hover:shadow-md flex items-center gap-2" type="submit">
+                            Send Invoice
+                            <span class="material-symbols-outlined text-[16px]">send</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- STEP 4: Review Invoice Modal (Matches Flow Chart Step 4 & 5) -->
+    <div id="reviewModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-outline-variant/50 animate-fade-in">
+            <div class="flex justify-between items-center pb-4 border-b border-outline-variant/30">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-[24px]">receipt_long</span>
+                    <h3 class="text-lg font-bold text-on-surface">Review Invoice</h3>
+                </div>
+                <button onclick="closeReviewModal()" class="text-on-surface-variant hover:text-on-surface p-1">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="py-4 space-y-4 text-sm">
+                <div class="bg-surface-bright rounded-xl p-4 space-y-2 border border-outline-variant/40">
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">Invoice Number:</span>
+                        <span id="reviewInvNum" class="font-semibold text-on-surface"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">Client Name:</span>
+                        <span id="reviewClient" class="font-semibold text-secondary"></span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-on-surface-variant">Due Date:</span>
+                        <span id="reviewDueDate" class="font-medium text-on-surface"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-2">Item Summary</h4>
+                    <div id="reviewItemsList" class="space-y-1.5 max-h-40 overflow-y-auto pr-1"></div>
+                </div>
+
+                <div class="pt-3 border-t border-outline-variant/30 space-y-1.5">
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Subtotal:</span>
+                        <span id="reviewSubtotal" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Tax:</span>
+                        <span id="reviewTax" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-on-surface pt-1 border-t border-outline-variant/20">
+                        <span>Grand Total:</span>
+                        <span id="reviewTotal" class="text-secondary"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-outline-variant/30">
+                <button onclick="closeReviewModal()" class="px-4 py-2 rounded-xl border border-outline-variant text-on-surface text-sm font-medium hover:bg-surface-container-low transition-colors">
+                    Edit Invoice
+                </button>
+                <button onclick="confirmAndSendInvoice()" class="px-6 py-2 rounded-xl bg-[#006a61] text-white text-sm font-medium hover:bg-[#005049] transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>Send</span>
+                    <span class="material-symbols-outlined text-[16px]">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 6: Success Modal (Matches Flow Chart Step 6) -->
+    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-surface-container-lowest rounded-3xl max-w-sm w-full p-8 shadow-2xl border border-outline-variant/40 text-center animate-fade-in space-y-5">
+            <div class="w-16 h-16 rounded-full bg-[#86f2e4]/30 text-[#006a61] flex items-center justify-center mx-auto ring-8 ring-[#86f2e4]/10">
+                <span class="material-symbols-outlined text-[36px] font-bold">check</span>
+            </div>
+            
+            <div class="space-y-1">
+                <h3 class="text-2xl font-bold text-on-surface">Success!</h3>
+                <p class="text-on-surface-variant text-sm font-medium">Invoice Sent Successfully</p>
+                <p id="successInvoiceDetail" class="text-xs text-on-surface-variant/80 pt-1"></p>
+            </div>
+
+            <div class="pt-3 space-y-2">
+                <a href="index.html" class="w-full bg-[#000000] text-white font-medium text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-800 transition-all shadow-sm">
+                    Back to Dashboard
+                </a>
+                <a href="transactions.html" class="w-full border border-outline-variant/80 text-on-surface font-medium text-sm py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all">
+                    View in Transactions
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-on-surface text-surface-bright px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <span class="material-symbols-outlined text-secondary-container">check_circle</span>
+        <span id="toastMsg" class="text-sm font-medium">Notification</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const dueDate = new Date();
+            dueDate.setDate(today.getDate() + 14);
+
+            document.getElementById('issueDate').value = today.toISOString().split('T')[0];
+            document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+
+            calculateTotals();
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobileBackdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function addLineItem() {
+            const tbody = document.getElementById('lineItemsBody');
+            const tr = document.createElement('tr');
+            tr.className = 'line-item-row group hover:bg-surface-container-lowest transition-colors border-b border-outline-variant/20';
+            tr.innerHTML = `
+                <td class="py-3 pr-3">
+                    <input class="item-desc w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="Item description" type="text"/>
+                </td>
+                <td class="py-3 pr-3">
+                    <input oninput="calculateTotals()" class="item-qty w-full bg-surface-bright border border-outline-variant/60 rounded-lg px-3.5 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="1" type="number" min="1" value="1"/>
+                </td>
+                <td class="py-3 pr-3">
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm font-medium">$</span>
+                        <input oninput="calculateTotals()" class="item-rate w-full bg-surface-bright border border-outline-variant/60 rounded-lg pl-7 pr-3 py-2 text-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" placeholder="0.00" type="number" step="0.01" min="0" value="0.00"/>
+                    </div>
+                </td>
+                <td class="item-amount py-3 text-right font-semibold text-on-surface pr-2 text-sm">$0.00</td>
+                <td class="py-3 text-right">
+                    <button onclick="removeLineItem(this)" class="text-outline hover:text-error transition-colors opacity-40 group-hover:opacity-100 p-1" type="button">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            calculateTotals();
+        }
+
+        function removeLineItem(btn) {
+            const rows = document.querySelectorAll('.line-item-row');
+            if (rows.length <= 1) {
+                showToast("Invoice must contain at least one item.");
+                return;
+            }
+            btn.closest('tr').remove();
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            const rows = document.querySelectorAll('.line-item-row');
+            let subtotal = 0;
+
+            rows.forEach(row => {
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+                const amount = qty * rate;
+                row.querySelector('.item-amount').textContent = `$${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                subtotal += amount;
+            });
+
+            const taxRate = parseFloat(document.getElementById('taxRateSelect').value) || 0;
+            const taxAmount = subtotal * (taxRate / 100);
+            const total = subtotal + taxAmount;
+
+            document.getElementById('subtotalDisplay').textContent = `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById('taxDisplay').textContent = `$${taxAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById('totalDisplay').textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+            return { subtotal, taxAmount, total };
+        }
+
+        function promptNewClient() {
+            const name = prompt("Enter new client name:");
+            if (name && name.trim()) {
+                const select = document.getElementById('clientSelect');
+                const opt = document.createElement('option');
+                opt.value = name.trim();
+                opt.textContent = name.trim();
+                opt.selected = true;
+                select.appendChild(opt);
+                showToast(`Client "${name.trim()}" added successfully!`);
+            }
+        }
+
+        function handleSaveDraft() {
+            const client = document.getElementById('clientSelect').value || 'Unassigned Client';
+            const { total } = calculateTotals();
+            showToast(`Draft for ${client} ($${total.toFixed(2)}) saved.`);
+        }
+
+        // STEP 4: Review Invoice Modal
+        function handleReviewInvoice(e) {
+            e.preventDefault();
+            const client = document.getElementById('clientSelect').value;
+            const invNum = document.getElementById('invoiceNum').value;
+            const dueDate = document.getElementById('dueDate').value;
+            const { subtotal, taxAmount, total } = calculateTotals();
+
+            if (!client) {
+                showToast("Please select a client before sending.");
+                return;
+            }
+
+            if (total <= 0) {
+                showToast("Please enter valid line item quantities and rates.");
+                return;
+            }
+
+            document.getElementById('reviewInvNum').textContent = invNum;
+            document.getElementById('reviewClient').textContent = client;
+            document.getElementById('reviewDueDate').textContent = dueDate || 'Net 14';
+            document.getElementById('reviewSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('reviewTax').textContent = `$${taxAmount.toFixed(2)}`;
+            document.getElementById('reviewTotal').textContent = `$${total.toFixed(2)}`;
+
+            const itemsContainer = document.getElementById('reviewItemsList');
+            itemsContainer.innerHTML = '';
+            const rows = document.querySelectorAll('.line-item-row');
+            rows.forEach(row => {
+                const desc = row.querySelector('.item-desc').value || 'Item';
+                const qty = row.querySelector('.item-qty').value || 1;
+                const amt = row.querySelector('.item-amount').textContent;
+                const div = document.createElement('div');
+                div.className = 'flex justify-between text-xs py-1 border-b border-outline-variant/10';
+                div.innerHTML = `<span class="text-on-surface font-medium">${qty}x ${desc}</span><span class="text-on-surface-variant font-semibold">${amt}</span>`;
+                itemsContainer.appendChild(div);
+            });
+
+            document.getElementById('reviewModal').classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.add('hidden');
+        }
+
+        // STEP 5 & 6: Confirm and Show Success Screen
+        function confirmAndSendInvoice() {
+            closeReviewModal();
+
+            const client = document.getElementById('clientSelect').value;
+            const invNum = document.getElementById('invoiceNum').value;
+            const { total } = calculateTotals();
+
+            // Save to transactions ledger
+            const txList = JSON.parse(localStorage.getItem('paypilot_transactions') || '[]');
+            txList.unshift({
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                description: `${client} - Project Milestone`,
+                subtitle: `${invNum} • ${client}`,
+                category: 'Consulting',
+                amount: total,
+                status: 'Completed',
+                type: 'Income'
+            });
+            localStorage.setItem('paypilot_transactions', JSON.stringify(txList));
+
+            // Show Success Modal (Step 6)
+            document.getElementById('successInvoiceDetail').textContent = `${invNum} • $${total.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})} sent to ${client}`;
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
